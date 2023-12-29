@@ -12,7 +12,7 @@ on:
           - t2.micro
           - t2.small
             
-        ami_id:
+        instance_ami:
           type: string
           description: "AMI ID"
           required: true
@@ -55,11 +55,11 @@ jobs:
       run: |
         terraform plan  \
           -var "instance_type=${{github.event.instance_type}}" \
-          -var "ami_id=${{github.event.ami_id}}" \
+          -var "instance_ami=${{github.event.instance_ami}}" \
 
     - name: "Terraform apply"
       run: |
          terraform apply \
            -var "instance_type=${{github.event.instance_type}}" \
-           -var "ami_id=${{github.event.ami_id}}" \
+           -var "instance_ami=${{github.event.instance_ami}}" \
            -auto-approve

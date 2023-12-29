@@ -1,4 +1,4 @@
-variable "ami_id" {}
+variable "instance_ami" {}
 variable "instance_type" {}
 variable "project_name" {}
 variable "project_env" {}
