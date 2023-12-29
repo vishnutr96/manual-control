@@ -17,7 +17,7 @@ on:
         type: string
         description: 'instance ami'
         required: true
-        default: "ami-079db87dc4c10ac91"
+        
 
 jobs:
   build:
