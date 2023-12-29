@@ -1,24 +1,23 @@
-name: "destroy Infra Build"
+name: "dev Infra Deletion"
 
 on:
   workflow_dispatch:
-  
-     inputs:
-      
-        instance_type:
-          type: choice
-          description: "Instance Type"
-          options:
-          - t2.micro
-          - t2.small
-            
-        ami_id:
-          type: string
-          description: "AMI ID"
-          required: true
-          default: "ami-0a0f1259dd1c90938"
-     
-  
+
+    inputs:
+
+      instance_type:
+        type: choice
+        description: "instance type"
+        options: 
+        - t2.micro
+        - t2.small
+        default: "t2.micro"
+
+      instance_ami:
+        type: string
+        description: 'instance ami'
+        required: true
+        default: "ami-02e94b011299ef128"
 
 jobs:
   build:
@@ -46,11 +45,9 @@ jobs:
           -backend-config="access_key=${{ secrets.DEV_ACCESS_KEY }}" \
           -backend-config="secret_key=${{ secrets.DEV_SECRET_KEY }}"
 
-    
 
     - name: "Terraform destroy"
       run: |
-       terraform destroy \
-           -var "instance_type=${{github.event.instance_type}}" \
-           -var "ami_id=${{github.event.ami_id}}" \
-           -auto-approve
+           terraform destroy -auto-approve \
+             -var "instance_type=${{ github.event.inputs.instance_type }}" \
+             -var "instance_ami=${{ github.event.inputs.instance_ami }}"
